@@ -8,6 +8,15 @@
 import UIKit
 
 class ShoppingTableViewController: UITableViewController {
+    
+    @IBAction func addItem(_ sender: UIBarButtonItem) {
+        let newItem = "Apple Watch"
+        shoppingItems.append(newItem)
+        tableView.reloadData() // 重新讀取data
+    }
+    
+    
+    var shoppingItems = ["iPhone", "iPad", "iMac"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
