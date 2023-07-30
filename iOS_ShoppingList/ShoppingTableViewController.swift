@@ -18,6 +18,14 @@ class ShoppingTableViewController: UITableViewController {
         tableView.insertRows(at: [insertInfoAtThisIndexPath], with: .automatic) // 插入新資料
     }
     
+    func popUpAlertWithDefault(defaultValue:String?) {
+        let alert = UIAlertController(title: "Add New Item", message: nil, preferredStyle: .alert)
+        alert.addTextField(configurationHandler: {(textfield) in
+            textfield.placeholder = "Add New Item Here"
+            textfield.text = defaultValue
+        })
+    }
+    
     
     var shoppingItems = ["iPhone", "iPad", "iMac"]
 
