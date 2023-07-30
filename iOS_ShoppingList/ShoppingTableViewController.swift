@@ -12,7 +12,10 @@ class ShoppingTableViewController: UITableViewController {
     @IBAction func addItem(_ sender: UIBarButtonItem) {
         let newItem = "Apple Watch"
         shoppingItems.append(newItem)
-        tableView.reloadData() // 重新讀取data
+        // tableView.reloadData() // 重新讀取data // 每個 cell 都會重新產生
+        
+        let insertInfoAtThisIndexPath = IndexPath(row: shoppingItems.count-1, section: 0)
+        tableView.insertRows(at: [insertInfoAtThisIndexPath], with: .automatic) // 插入新資料
     }
     
     
