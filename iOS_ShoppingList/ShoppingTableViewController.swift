@@ -19,11 +19,34 @@ class ShoppingTableViewController: UITableViewController {
     }
     
     func popUpAlertWithDefault(defaultValue:String?) {
+        
         let alert = UIAlertController(title: "Add New Item", message: nil, preferredStyle: .alert)
         alert.addTextField(configurationHandler: {(textfield) in
             textfield.placeholder = "Add New Item Here"
             textfield.text = defaultValue
         })
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: {
+            (action) in
+            // what to do after pressing ok button
+            // take out text from textfield // 取input值
+            if let inputText = alert.textFields?[0].text {
+                if inputText != "" {
+                    // ... append inputText to shopping list
+                    self.handler(true, inputText)
+                }
+            }
+        })
+        // alert.addAction(<#T##action: UIAlertAction##UIAlertAction#>)
+    }
+    
+    let handler: (Bool, String?)->() = {
+        (success:Bool, result:String?) in
+        if success == true {
+            if let okResult = result {
+                // shoppingItems.append(okResult)
+            }
+        }
     }
     
     
