@@ -10,12 +10,21 @@ import UIKit
 class ShoppingTableViewController: UITableViewController {
     
     @IBAction func addItem(_ sender: UIBarButtonItem) {
-        let newItem = "Apple Watch"
-        shoppingItems.append(newItem)
-        // tableView.reloadData() // 重新讀取data // 每個 cell 都會重新產生
+        popUpAlertWithDefault(nil, withCompletionHandler: {
+            (success:Bool, result:String?) in
+            if success == true {
+                if let okResult = result {
+                    self.shoppingItems.append(okResult) // 在closure內要加上self.
+                    
+                    // tableView.reloadData() // 重新讀取data // 每個 cell 都會重新產生
+                    let insertInfoAtThisIndexPath = IndexPath(row: self.shoppingItems.count-1, section: 0)
+                    self.tableView.insertRows(at: [insertInfoAtThisIndexPath], with: .automatic) // 插入新資料
+                }
+            }
+        })
         
-        let insertInfoAtThisIndexPath = IndexPath(row: shoppingItems.count-1, section: 0)
-        tableView.insertRows(at: [insertInfoAtThisIndexPath], with: .automatic) // 插入新資料
+        // let newItem = "Apple Watch"
+        // shoppingItems.append(newItem)
     }
     
     func popUpAlertWithDefault(_ defaultValue:String?, withCompletionHandler handler: @escaping (Bool, String?)->()) {
