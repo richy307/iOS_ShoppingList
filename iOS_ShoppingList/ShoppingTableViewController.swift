@@ -18,14 +18,18 @@ class ShoppingTableViewController: UITableViewController {
         tableView.insertRows(at: [insertInfoAtThisIndexPath], with: .automatic) // 插入新資料
     }
     
-    func popUpAlertWithDefault(defaultValue:String?) {
+    func popUpAlertWithDefault(_ defaultValue:String?, withCompletionHandler handler: @escaping (Bool, String?)->()) {
         
+        // Alert Controller
         let alert = UIAlertController(title: "Add New Item", message: nil, preferredStyle: .alert)
+        
+        // Alert Text Field
         alert.addTextField(configurationHandler: {(textfield) in
             textfield.placeholder = "Add New Item Here"
             textfield.text = defaultValue
         })
         
+        // OK Alert Action
         let okAction = UIAlertAction(title: "OK", style: .default, handler: {
             (action) in
             // what to do after pressing ok button
@@ -33,11 +37,25 @@ class ShoppingTableViewController: UITableViewController {
             if let inputText = alert.textFields?[0].text {
                 if inputText != "" {
                     // ... append inputText to shopping list
-                    self.handler(true, inputText)
+                    handler(true, inputText)
+                } else {
+                    handler(false, nil)
                 }
             }
         })
-        // alert.addAction(<#T##action: UIAlertAction##UIAlertAction#>)
+        
+        // Cancel Alert Action
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action) in
+            handler(false, nil)
+        })
+        
+        // add Alert Action
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        
+        // show Alert Controller
+        present(alert, animated: true, completion: nil)
     }
     
     let handler: (Bool, String?)->() = {
@@ -101,7 +119,7 @@ class ShoppingTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     */
 
