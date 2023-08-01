@@ -19,6 +19,7 @@ class ShoppingTableViewController: UITableViewController {
                     // tableView.reloadData() // 重新讀取data // 每個 cell 都會重新產生
                     let insertInfoAtThisIndexPath = IndexPath(row: self.shoppingItems.count-1, section: 0)
                     self.tableView.insertRows(at: [insertInfoAtThisIndexPath], with: .automatic) // 插入新資料
+                    self.saveList()
                 }
             }
         })
@@ -32,7 +33,7 @@ class ShoppingTableViewController: UITableViewController {
         // Alert Controller
         let alert = UIAlertController(title: "Add New Item", message: nil, preferredStyle: .alert)
         
-        // Alert Text Field
+        // add Alert Text Field
         alert.addTextField(configurationHandler: {(textfield) in
             textfield.placeholder = "Add New Item Here"
             textfield.text = defaultValue
@@ -67,6 +68,18 @@ class ShoppingTableViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    // UserDefaults set
+    func saveList() {
+        UserDefaults.standard.set(shoppingItems, forKey: "list")
+    }
+    
+    // UserDefaults get
+    func loadList() {
+        if let okList = UserDefaults.standard.stringArray(forKey: "list") {
+            shoppingItems = okList
+        }
+    }
+    
     let handler: (Bool, String?)->() = {
         (success:Bool, result:String?) in
         if success == true {
@@ -77,10 +90,11 @@ class ShoppingTableViewController: UITableViewController {
     }
     
     
-    var shoppingItems = ["iPhone", "iPad", "iMac"]
+    var shoppingItems = [String]() // init empty array // ["iPhone", "iPad", "iMac"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadList()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
