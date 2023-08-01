@@ -95,7 +95,16 @@ class ShoppingTableViewController: UITableViewController {
         }
     }
     
+    // UITableViewCell EditingStyle (Left Swipe...) (Delete)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            shoppingItems.remove(at: indexPath.row)
+            saveList()
+            tableView.reloadData()
+        }
+    }
     
+    // Array Data
     var shoppingItems = [String]() // init empty array // ["iPhone", "iPad", "iMac"]
 
     override func viewDidLoad() {
