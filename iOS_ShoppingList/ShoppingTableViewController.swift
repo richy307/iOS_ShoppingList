@@ -11,8 +11,9 @@ typealias AddItemClosure = (Bool, String?)->()
 
 class ShoppingTableViewController: UITableViewController {
     
+    // Add Button
     @IBAction func addItem(_ sender: UIBarButtonItem) {
-        popUpAlertWithDefault(nil, withCompletionHandler: {
+        popUpAlertWithDefault(nil) {
             (success:Bool, result:String?) in
             if success == true {
                 if let okResult = result {
@@ -24,7 +25,7 @@ class ShoppingTableViewController: UITableViewController {
                     self.saveList()
                 }
             }
-        })
+        }
         
         // let newItem = "Apple Watch"
         // shoppingItems.append(newItem)
