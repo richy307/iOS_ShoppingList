@@ -80,11 +80,17 @@ class ShoppingTableViewController: UITableViewController {
         }
     }
     
-    let handler: (Bool, String?)->() = {
-        (success:Bool, result:String?) in
-        if success == true {
-            if let okResult = result {
-                // shoppingItems.append(okResult)
+    // UITableView Accessory Button (Edit)
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        popUpAlertWithDefault(shoppingItems[indexPath.row]) {
+            (success:Bool, result:String?) in
+            if success == true {
+                if let okResult = result {
+                    // shoppingItems.append(okResult)
+                    self.shoppingItems[indexPath.row] = okResult
+                    tableView.reloadData() // 重新讀取data // 每個 cell 都會重新產生
+                    self.saveList()
+                }
             }
         }
     }
