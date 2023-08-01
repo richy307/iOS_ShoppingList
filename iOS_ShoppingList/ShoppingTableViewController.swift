@@ -7,6 +7,8 @@
 
 import UIKit
 
+typealias AddItemClosure = (Bool, String?)->()
+
 class ShoppingTableViewController: UITableViewController {
     
     @IBAction func addItem(_ sender: UIBarButtonItem) {
@@ -28,7 +30,8 @@ class ShoppingTableViewController: UITableViewController {
         // shoppingItems.append(newItem)
     }
     
-    func popUpAlertWithDefault(_ defaultValue:String?, withCompletionHandler handler: @escaping (Bool, String?)->()) {
+    // Alert Controller
+    func popUpAlertWithDefault(_ defaultValue:String?, withCompletionHandler handler: @escaping AddItemClosure) {
         
         // Alert Controller
         let alert = UIAlertController(title: "Add New Item", message: nil, preferredStyle: .alert)
